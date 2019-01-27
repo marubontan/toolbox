@@ -18,7 +18,7 @@ def Try(fn, obj: Union[Any, Either]) -> Either:
 
 
 def check_output(output: Either):
-    if not isinstance(output, Either) and type(output) is not Either:
+    if (not isinstance(output, Either)) or (type(output) is Either):
         raise ValueError("Input type should be subclass of Either.")
     elif type(output) == Right:
         print("SUCCESS")
