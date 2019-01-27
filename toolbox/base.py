@@ -1,5 +1,8 @@
+from abc import ABC
 from typing import Any
-class Either:
+
+
+class Either(ABC):
     pass
 
 

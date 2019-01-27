@@ -1,6 +1,6 @@
 import pytest
 from toolbox.base import Right, Left
-from toolbox.manager import Try
+from toolbox.manager import Try, check_output
 
 
 def test_Try():
@@ -50,5 +50,18 @@ def test_Try():
     assert str(left_error.error) == "error_1"
 
 
+def test_check_output():
+    normal_obj = 2
+    right_obj = Right(2)
+    left_obj = Left(Exception("error_1"))
+    with pytest.raises(ValueError):
+        check_output(normal_obj)
 
+    try:
+        check_output(right_obj)
+    except Exception as e:
+        pytest.fail("Right object must not raise error.")
+        raise e
 
+    with pytest.raises(Exception, match="error_1"):
+        check_output(left_obj)
